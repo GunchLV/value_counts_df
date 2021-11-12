@@ -1,12 +1,13 @@
-def value_counts_df(df_column, count='count', drop_0=True):
+def value_counts_df(df_column, count='count', drop_0=True, dropnan=False):
     '''    
     * df_column - dataframe column 
     * count='count' - name of new number column containing value counts
     * drop_0=True - usefull if using this function on category type column, then there is posibility
     to recieve items with '0' count as a result
+    * dropnan - exclude NaN values from value_counts table
     '''
     column_name = df_column.name
-    new_table = pd.DataFrame(df_column.value_counts())
+    new_table = pd.DataFrame(df_column.value_counts(dropna=dropnan))
     new_table.reset_index(level=0, inplace=True)
     new_table.columns = [column_name, count]
     if drop_0 == True:
